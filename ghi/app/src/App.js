@@ -4,6 +4,7 @@ import Nav from './Nav';
 import Manufacturers from './inventory/ManufacturerPage';
 import AutomobilesList from './inventory/Automobiles';
 import VehicleModels from './inventory/VehicleModelPage';
+import CreateAuto from './inventory/AutoCreate';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="manufacturers/" element={<Manufacturers />} />
           <Route path="models/" element={<VehicleModels />} />
           <Route path="automobiles/" element={<AutomobilesList />} />
+          <Route path="auto/new/" element={<CreateAuto />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -1,23 +1,33 @@
 import { useState, useEffect } from 'react';
-// import { Link } from "react-router-dom";
+import CreateAuto from './AutoCreate';
 
-function AutomobilesList() {
-
+const AutomobilesList =() => {
     const [autos, setAuto] = useState([]);
 
-    useEffect(() => {
-        const fetchdata = async () => {
-            const url = "http://localhost:8100/api/automobiles/";
-            const response = await fetch(url);
-            if (response) {
-                const data = await response.json();
-                setAuto(data.autos);
-            }
+    async function fetchAutoData() {
+        const autoUrl = 'http://localhost:8100/api/automobiles/';
+        const response = await fetch(autoUrl);
+        if (response) {
+            const data = await response.json();
+            setAuto(data.autos);
         }
-        fetchdata();
+    }
+
+    useEffect(() => {
+        fetchAutoData();
     }, []);
 
     return (
+        <>
+        <br />
+        <div className="container" >
+            <div className="row justify-content-end">
+                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createmanufacturer" data-bs-whatever="@mdo">Create an Automobile</button>
+            </div>
+        </div>
+        <CreateAuto fetchAutoData={fetchAutoData} autos={autos} />
+
+
         <table className="table table-striped">
             <thead>
             <tr>
@@ -44,7 +54,7 @@ function AutomobilesList() {
                     })}
             </tbody>
         </table>
-
+        </>
     );
 }
 
