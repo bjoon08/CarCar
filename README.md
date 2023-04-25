@@ -2,8 +2,8 @@
 
 Team:
 
-* Person 1 - Which microservice?
-* Person 2 - Which microservice?
+* Brandon Joon Hyuk Jang - Sales Microservice
+* Ramon Duarte - Services Microservices
 
 ## Design
 
