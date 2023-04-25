@@ -4,6 +4,7 @@ import Nav from './Nav';
 import Manufacturers from './inventory/ManufacturerPage';
 import AutomobilesList from './inventory/Automobiles';
 import CreateAuto from './inventory/AutoCreate';
+import VehicleModels from './inventory/VehicleModelPage';
 
 function App() {
   return (

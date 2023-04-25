@@ -12,9 +12,9 @@ function Nav() {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <NavLink className="nav-link active" to="manufacturers/">Manufacturer List</NavLink>
-              <li>
-              <NavLink className="nav-link active" to="models/">Vehicle Model List</NavLink>
             </li>
+            <li>
+              <NavLink className="nav-link active" to="models/">Vehicle Model List</NavLink>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="automobiles/">Automobiles</NavLink>
