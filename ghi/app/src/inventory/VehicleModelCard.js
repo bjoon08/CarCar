@@ -23,4 +23,3 @@ const VehicleModelCard = ({ vehicleModels, manufacturers }) => {
 };
 
 export default VehicleModelCard;
-
