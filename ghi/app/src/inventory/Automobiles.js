@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import CreateAuto from './AutoCreate';
 
 const AutomobilesList =() => {
@@ -13,8 +13,10 @@ const AutomobilesList =() => {
         }
     }
 
+
     useEffect(() => {
         fetchAutoData();
+
     }, []);
 
     return (
@@ -22,10 +24,11 @@ const AutomobilesList =() => {
         <br />
         <div className="container" >
             <div className="row justify-content-end">
-                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createmanufacturer" data-bs-whatever="@mdo">Create an Automobile</button>
+                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createauto" data-bs-whatever="@mdo">Create an Auto</button>
             </div>
         </div>
         <CreateAuto fetchAutoData={fetchAutoData} autos={autos} />
+
 
 
         <table className="table table-striped">
@@ -46,12 +49,13 @@ const AutomobilesList =() => {
                         <td>{ auto.vin }</td>
                         <td>{ auto.color }</td>
                         <td>{ auto.year }</td>
-                        <td>{ auto.models }</td>
-                        <td>{ auto.manufacturer }</td>
+                        <td>{ auto.model.name }</td>
+                        <td>{ auto.model.manufacturer.name }</td>
                         <td>{ auto.sold }</td>
                     </tr>
                     );
-                    })}
+                    },
+                    )}
             </tbody>
         </table>
         </>

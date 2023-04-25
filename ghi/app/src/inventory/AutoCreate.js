@@ -5,6 +5,7 @@ const CreateAuto = () => {
     const [year, setYear] = useState('');
     const [vin, setVin] = useState('');
     const [model, setModel] = useState('');
+    const [models, setModels] = useState([]);
 
     const handleColorChange = (event) => {
         setColor(event.target.value);
@@ -29,32 +30,45 @@ const CreateAuto = () => {
     data.vin = vin;
     data.model_id = model;
 
-    const automobileUrl = 'http://localhost:8100/api/automobiles/';
-    const fetchConfigUrl = {
-        method: "post",
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    }
-    const response = await fetch(automobileUrl, fetchConfigUrl);
+        const automobileUrl = 'http://localhost:8100/api/automobiles/';
+        const fetchConfigUrl = {
+            method: "post",
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        }
+        const response = await fetch(automobileUrl, fetchConfigUrl);
+        console.log(response)
 
-    if (response.ok) {
+        if (response.ok) {
 
-        setColor('')
-        setYear('')
-        setVin('')
-        setModel('')
+            setColor('')
+            setYear('')
+            setVin('')
+            setModel('')
+        }
+        window.location.reload();
     }
-    window.location.reload();
+    const fetchData = async () => {
+        const url = 'http://localhost:8100/api/models/';
+        const response = await fetch(url);
+        if (response.ok) {
+            const data = await response.json();
+            setModels(data.models);
+        }
     }
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <div className="modal fade" id="createauto" tabIndex="-1" aria-labelledby="createautoLabel" aria-hidden="true">
             <div className="modal-dialog">
             <div className="modal-content">
                 <div className="modal-header">
-                <h5 className="modal-title" id="createautoLabel">Add an automobile to inventory</h5>
+                <h5 className="modal-title" id="createautoLabel">Create an automobile</h5>
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">
@@ -72,8 +86,14 @@ const CreateAuto = () => {
                     <input value={vin} onChange={handleVinChange} type="text" className="form-control" id="vin" />
                     </div>
                     <div className="mb-3">
-                    <label htmlFor="model" className="col-form-label">Model Name</label>
-                    <input value={model} onChange={handleModelChange} type="select" className="form-control" id="model" />
+                    <select value={model} onChange={handleModelChange} className="form-select" aria-label="Default select example">
+                    <option value="">Select a model</option>
+                        {models?.map(model => {
+                        return (
+                            <option value={model.id} key={model.id}>{model.name}</option>
+                        )
+                        })}
+                    </select>
                     </div>
                     <div className="modal-footer">
                     <button data-bs-dismiss="modal" type="submit" className="btn btn-primary">Create</button>
@@ -85,5 +105,6 @@ const CreateAuto = () => {
         </div>
     );
 }
+
 
 export default CreateAuto;
