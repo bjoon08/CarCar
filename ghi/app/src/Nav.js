@@ -13,7 +13,7 @@ function Nav() {
             <li className="nav-item">
               <NavLink className="nav-link active" to="manufacturers/">Manufacturer List</NavLink>
             </li>
-            <li className="nav-item">
+            <li>
               <NavLink className="nav-link active" to="models/">Vehicle Model List</NavLink>
             </li>
             <li className="nav-item">
@@ -24,6 +24,9 @@ function Nav() {
             </li>
             <li>
               <NavLink className="nav-link active" to="customers/">Customer List</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" to="technicians/">Technicians</NavLink>
             </li>
           </ul>
         </div>
