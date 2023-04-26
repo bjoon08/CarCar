@@ -6,12 +6,12 @@ const SalesPersonCard = ({ salespeople }) => {
                 <div className="col-md-4 mb-4" key={salesperson.id}>
                     <div className="card shadow h-100">
                     <div className="card-body">
-                        <h5 className="card-title">Employee ID:</h5>
-                        <p className="card-text">{salesperson.employee_id}</p>
+                        <h5 className="card-title fs-6"><strong>Employee ID:</strong></h5>
+                        <p className="card-text fs-4">{salesperson.employee_id}</p>
                     </div>
                     <div className="card-footer">
-                        <h5 className="card-title">First/Last Name:</h5>
-                        <p className="card-text">{salesperson.first_name} {salesperson.last_name}</p>
+                        <h5 className="card-title fs-6"><strong>First/Last Name:</strong></h5>
+                        <p className="card-text fs-5">{salesperson.first_name} {salesperson.last_name}</p>
                     </div>
                     </div>
                 </div>

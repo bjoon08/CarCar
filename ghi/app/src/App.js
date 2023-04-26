@@ -6,6 +6,7 @@ import AutomobilesList from './inventory/Automobiles';
 import VehicleModels from './inventory/VehicleModelPage';
 import CreateAuto from './inventory/AutoCreate';
 import SalesPeople from './sales/SalesPersonPage';
+import Customer from './sales/CustomerPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="automobiles/" element={<AutomobilesList />} />
           <Route path="auto/new/" element={<CreateAuto />} />
           <Route path="salespeople/" element={<SalesPeople />} />
+          <Route path="customers/" element={<Customer />} />
         </Routes>
       </div>
     </BrowserRouter>

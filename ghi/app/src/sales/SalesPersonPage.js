@@ -11,9 +11,7 @@ const SalesPeople = () => {
         if (response.ok) {
             const data = await response.json();
             setSalesPeople(data.salespersons);
-            console.log(data, "----");
         }
-        console.log(response);
     }
 
     useEffect(() => {

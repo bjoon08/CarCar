@@ -8,8 +8,8 @@ const VehicleModelCard = ({ vehicleModels, manufacturers }) => {
                 <div className="card shadow h-100">
                 <img src={vehicleModel.picture_url} className="card-img-top" />
                     <div className="card-body">
-                        <h5 className="card-title"><strong>Name:</strong> {vehicleModel.name}</h5>
-                        <p className="card-text">
+                        <h5 className="card-title fs-5"><strong>Name:</strong> {vehicleModel.name}</h5>
+                        <p className="card-text fs-6">
                         <strong>Vehicle Model:</strong> {vehicleModel.manufacturer.name}
                         </p>
                     </div>
