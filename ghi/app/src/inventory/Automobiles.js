@@ -28,9 +28,6 @@ const AutomobilesList =() => {
             </div>
         </div>
         <CreateAuto fetchAutoData={fetchAutoData} autos={autos} />
-
-
-
         <table className="table table-striped">
             <thead>
             <tr>
@@ -51,11 +48,11 @@ const AutomobilesList =() => {
                         <td>{ auto.year }</td>
                         <td>{ auto.model.name }</td>
                         <td>{ auto.model.manufacturer.name }</td>
-                        <td>{ auto.sold }</td>
+                        <td>{ auto.sold ? "Yes": "No"}</td>
                     </tr>
                     );
-                    },
-                    )}
+                },
+                )}
             </tbody>
         </table>
         </>

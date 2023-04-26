@@ -16,11 +16,11 @@ function Nav() {
             <li>
               <NavLink className="nav-link active" to="models/">Vehicle Model List</NavLink>
             </li>
-            <li>
-              <NavLink className="nav-link active" to="models/">Vehicle Model List</NavLink>
+            <li className="nav-item">
+              <NavLink className="nav-link active" to="automobiles/">Automobiles List</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="automobiles/">Automobiles</NavLink>
+              <NavLink className="nav-link active" to="technicians/">Technicians</NavLink>
             </li>
           </ul>
         </div>
