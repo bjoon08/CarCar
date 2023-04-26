@@ -7,7 +7,8 @@ const ManufacturerCard = ({ manufacturers }) => {
                 {/* <div className="card h-100 w-50"> */}
                 <div className="card shadow h-100">
                 <div className="card-body">
-                    <h5 className="card-title">{manufacturer.name}</h5>
+                    <h5 className="card-title fs-6">Name:</h5>
+                    <p className="card-text fs-4">{manufacturer.name}</p>
                 </div>
                 {/* <div className="card-footer">{manufacturer.name}</div> */}
                 </div>

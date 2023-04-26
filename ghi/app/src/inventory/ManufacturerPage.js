@@ -21,15 +21,17 @@ const Manufacturers = () => {
     return (
         <>
         <br />
-        <div className="container" >
-            <div className="row justify-content-end">
-                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createmanufacturer" data-bs-whatever="@mdo">Create a Manufacturer</button>
+        <div className="container mt-4">
+            <div className="row justify-content-end text-center">
+                <button type="button" className="btn btn-primary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#createmanufacturer" data-bs-whatever="@mdo">Create a Manufacturer</button>
             </div>
         </div>
         <CreateManufacturer fetchManufacturerData={fetchManufacturerData} manufacturers={manufacturers} />
 
+        <div className="container mt-4">
         <div className="row gy-3">
             <ManufacturerCard manufacturers={manufacturers} />
+        </div>
         </div>
     </>
     );

@@ -23,15 +23,17 @@ const SalesPeople = () => {
     return (
         <>
         <br />
-            <div className="container" >
-                <div className="row justify-content-end">
-                    <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createsalesperson" data-bs-whatever="@mdo">Create a Sales Person</button>
+            <div className="container mt-4">
+                <div className="row justify-content-end text-center">
+                    <button type="button" className="btn btn-primary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#createsalesperson" data-bs-whatever="@mdo">Create a Sales Person</button>
                 </div>
             </div>
             <CreateSalesPerson fetchSalesPeopleData={fetchSalesPeopleData} salespeople={salespeople} />
 
+            <div className="container mt-4">
             <div className="row gy-3">
                 <SalesPersonCard salespeople={salespeople} />
+            </div>
             </div>
         </>
     );
