@@ -37,6 +37,8 @@ const CreateSales = () => {
         data.customer = customer
         console.log(data)
 
+        const autoUrl = 'http://localhost:8100/api/automobiles/';
+
         const salesUrl = 'http://localhost:8090/api/sales/';
         const fetchConfigUrl = {
             method: "post",
@@ -49,6 +51,16 @@ const CreateSales = () => {
 
         if (response.ok) {
             const newSalesRecord = await response.json();
+        }
+        const autoFetchConfig = {
+            method: "put",
+            body: JSON.stringify({ sold: true}),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+        const autoResponse = await fetch(`${autoUrl}${automobile}/`, autoFetchConfig);
+        if (autoResponse.ok) {
             setPrice('');
             setAutomobile('');
             setSalesperson('');
@@ -62,7 +74,8 @@ const CreateSales = () => {
         const response = await fetch(url);
         if (response.ok) {
             const data = await response.json();
-            setAutomobiles(data.autos);
+            const notSoldAuto = data.autos.filter(auto => !auto.sold);
+            setAutomobiles(notSoldAuto);
         }
     }
 
