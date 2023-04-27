@@ -1,100 +1,75 @@
-import React, { useEffect, useState } from 'react';
-import SalesHistoryCard from './SalesHistoryCard';
+import { useEffect, useState } from "react";
 
 const SalesHistory = () => {
-    const [sales, setSales] = useState([]);
-    const [salespeople, setSalesPeople] = useState([]);
-    const [selectedSalesperson, setSelectedSalesperson] = useState(null);
-
-    async function fetchSalesData(salespersonId) {
-        let saleUrl = 'http://localhost:8090/api/sales/';
-        if (salespersonId) {
-            saleUrl += `?salesperson_id=${salespersonId}`;
-        }
-        const response = await fetch(saleUrl);
+    const [salespeople, setSalespeople] = useState([]);
+    async function loadSalespeople() {
+        const response = await fetch('http://localhost:8090/api/salespeople/');
         if (response.ok) {
             const data = await response.json();
-            return data.sales;
+            setSalespeople(data.salespersons);
+        } else {
+            console.error(response)
         }
-        return [];
+    }
+    const [salesHistory, setSalesHistory] = useState([]);
+    async function loadSalesHistory() {
+        const response = await fetch('http://localhost:8090/api/sales/');
+        if (response.ok) {
+            const data = await response.json();
+            setSalesHistory(data.sales);
+        } else {
+            console.error(response)
+        }
     }
 
     useEffect(() => {
-        async function fetchSalesPeopleData() {
-            const salespeopleUrl = 'http://localhost:8090/api/salespeople/';
-            const response = await fetch(salespeopleUrl);
-            if (response.ok) {
-                const data = await response.json();
-                setSalesPeople(data.salespersons);
-            }
-        }
-
-        fetchSalesPeopleData();
+        loadSalesHistory();
+        loadSalespeople();
     }, []);
 
-    useEffect(() => {
-        async function fetchData() {
-            let data;
-
-            if (selectedSalesperson) {
-                console.log(`Fetching data for salesperson with id: ${selectedSalesperson}`);
-                data = await fetchSalesData(selectedSalesperson);
-            } else {
-                console.log('Fetching data for all salespeople');
-                data = await fetchSalesData();
-            }
-
-            console.log(`Received data:`, data);
-            setSales(data || []);
-        }
-
-        fetchData();
-    }, [selectedSalesperson]);
-
+    const [salesperson, setSalesperson] = useState('');
+    const [saleslist, setSaleslist] = useState([]);
     const handleSalespersonChange = (event) => {
-        setSelectedSalesperson(event.target.value || null);
-    };
-
-    const filteredSales = selectedSalesperson
-        ? sales.filter((sale) => sale.salesperson_id === selectedSalesperson)
-        : sales;
+        const value = event.target.value;
+        setSalesperson(value);
+        const filteredList = salesHistory.filter(history => history.salesperson === value)
+        setSaleslist(filteredList);
+    }
 
     return (
         <>
-            <br />
-            <div className="container">
-                <div className="row justify-content-end">
-                    <div className="col-sm-3">
-                        <select
-                            className="form-select"
-                            value={selectedSalesperson || ''}
-                            onChange={handleSalespersonChange}
-                        >
-                            <option value=''>Select a Salesperson</option>
-                            {salespeople.map((salesperson) => (
-                                <option key={salesperson.id} value={salesperson.id}>
-                                    {`${salesperson.first_name} ${salesperson.last_name}`}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div className="row gy-3">
-                {filteredSales?.map((sale) => (
-                    <div className="col-4" key={sale.id}>
-                        <SalesHistoryCard
-                            salesperson={`${sale.salesperson_first_name} ${sale.salesperson_last_name}`}
-                            customer={`${sale.customer_first_name} ${sale.customer_last_name}`}
-                            automobile={sale.automobile}
-                            price={sale.price}
-                        />
-                    </div>
-                ))}
-            </div>
+        <h1 className="mt-5"><strong>Salesperson History</strong></h1>
+        <select value={salesperson} onChange={handleSalespersonChange} id="salesperson" name="salesperson" className="form-select mb-3 mt-0" aria-label=".form-select-lg example">
+            <option value="">Choose a salesperson</option>
+            {salespeople?.map(salesperson => {
+                return <option value={salesperson.employee_id} key={salesperson.employee_id}>{salesperson.first_name} {salesperson.last_name}</option>
+            })}
+        </select>
+        <table className="table table-striped">
+        <thead className="table border-dark">
+            <tr>
+            <th>Salesperson Employee ID</th>
+            <th>Salesperson Name</th>
+            <th>Customer</th>
+            <th>VIN</th>
+            <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+        {saleslist.map(sale => {
+                return (
+                <tr key={sale.id}>
+                    <td>{sale.salesperson}</td>
+                    <td>{sale.salesperson_first_name} {sale.salesperson_last_name}</td>
+                    <td>{sale.customer} {sale.customer_last_name}</td>
+                    <td>{sale.automobile}</td>
+                    <td>${sale.price}</td>
+                </tr>
+                )
+            })}
+        </tbody>
+        </table>
         </>
-    );
-};
-
+    )
+}
 export default SalesHistory;
