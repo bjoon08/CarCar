@@ -16,6 +16,7 @@ class Technician(models.Model):
 
 class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17, unique=True)
+    sold = models.BooleanField(default=False)
 
 
 class Appointment(models.Model):
@@ -35,22 +36,6 @@ class Appointment(models.Model):
     )
     sold = models.ForeignKey(
         AutomobileVO,
-        related_name="sold",
+        related_name="vip",
         on_delete=models.CASCADE,
     )
-
-    def get_api_appointments(self):
-        return reverse("api_appointments", kwargs={"id": self.id})
-
-    def __str__(self):
-        return self.vin
-
-    class Meta:
-        ordering = ("vin",)
-    # def cancel(self):
-    #     self.status = "CANCEL"
-    #     self.save()
-
-    # def finish(self):
-    #     self.status = "FINISH"
-    #     self.save()

@@ -35,8 +35,7 @@ const CreateAppointment = () => {
         const data = {};
         data.vin = vin;
         data.customer = customer;
-        data.date = date;
-        data.time = time;
+        data.date_time = date + " " + time;
         data.technician = technician;
         data.reason = reason;
 

@@ -10,6 +10,7 @@ import Customer from './sales/CustomerPage';
 import Sales from './sales/SalesPage';
 import TechnicianList from './services/Technicians';
 import AppointmentList from './services/Appointments';
+import ServiceHistoryList from './services/ServiceHistory';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="sales/" element={<Sales />} />
           <Route path="technicians/" element={<TechnicianList />} />
           <Route path="appointments/" element={<AppointmentList />} />
+          <Route path="appointments/history" element={<ServiceHistoryList />} />
         </Routes>
       </div>
     </BrowserRouter>
