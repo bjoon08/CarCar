@@ -13,7 +13,7 @@ class TechnicianEncoder(ModelEncoder):
 
 class AutomobileVOEncoder(ModelEncoder):
     model = AutomobileVO
-    properties = ["id", "vin", "sold"]
+    properties = ["vin"]
 
 
 class AppointmentEncoder(ModelEncoder):
@@ -24,16 +24,14 @@ class AppointmentEncoder(ModelEncoder):
         "reason",
         "status",
         "customer",
+        "vin",
         "technician",
-        "sold",
         ]
     encoders = {
-        "sold": AutomobileVOEncoder(),
         "technician": TechnicianEncoder(),
     }
 
-    def get_extra_data(self, o):
-        return {"vin": o.vin.vin}
+
 
 
 @require_http_methods({"GET", "POST"})
@@ -45,19 +43,18 @@ def api_technicians(request):
             encoder=TechnicianEncoder,
         )
     else:
-        try:
-            content = json.loads(request.body)
-            technician = Technician.objects.create(**content)
-            return JsonResponse(
-                technician,
-                encoder=TechnicianEncoder,
-                safe=False,
-            )
-        except:
-            return JsonResponse(
-                {"message": "Could not create the Technician"},
-                status=400,
-            )
+        # try:
+        content = json.loads(request.body)
+        technician = Technician.objects.create(**content)
+        return JsonResponse(
+            technician,
+            encoder=TechnicianEncoder,
+            safe=False,
+        )
+        # return JsonResponse(
+        #     {"message": "Could not create the Technician"},
+        #     status=400,
+        # )
 
 
 @require_http_methods({"DELETE"})
@@ -78,21 +75,22 @@ def api_appointments(request):
     else:
         try:
             content = json.loads(request.body)
-            vin = content["vin"]["vin"]
-            auto_vin = AutomobileVO.objects.get(vin=vin)
-            content["auto_vin"] = auto_vin
-            appointments = Appointment.objects.create(**content)
-            return JsonResponse(
-                appointments,
-                encoder=AppointmentEncoder,
-                safe=False,
-            )
-        except:
+            technician_id = content["technician"]
+            technician = Technician.objects.get(employee_id=technician_id)
+            content["technician"] = technician
+
+        except Technician.DoesNotExist:
             response = JsonResponse(
                 {"message": "Could not create the appointment"}
             )
             response.status_code = 400
             return response
+        appointment = Appointment.objects.create(**content)
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentEncoder,
+            safe=False,
+        )
 
 
 @require_http_methods({"DELETE"})

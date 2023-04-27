@@ -53,7 +53,7 @@ const getSearchTerm = () => {
                 {appointments?.map(appointment => {
                     return (
                     <tr key={appointment.id} >
-                        <td>{ appointment.vin }</td>
+                        <td>{ appointment.vin.vin }</td>
                         <td>{ appointment.sold ? "Yes": "No" }</td>
                         <td>{ appointment.customer }</td>
                         <td>{ new Date(appointment.date_time).toLocaleDateString() }</td>

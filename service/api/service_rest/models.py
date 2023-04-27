@@ -5,7 +5,7 @@ from django.urls import reverse
 class Technician(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    employee_id = models.CharField(max_length=100)
+    employee_id = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.employee_id
@@ -16,7 +16,7 @@ class Technician(models.Model):
 
 class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17, unique=True)
-    sold = models.BooleanField(default=False)
+
 
 
 class Appointment(models.Model):
@@ -26,16 +26,7 @@ class Appointment(models.Model):
     customer = models.CharField(max_length=100)
     technician = models.ForeignKey(
         Technician,
-        related_name="technician",
+        related_name="appointment",
         on_delete=models.CASCADE,
     )
-    vin = models.ForeignKey(
-        AutomobileVO,
-        related_name="auto_vin",
-        on_delete=models.CASCADE,
-    )
-    sold = models.ForeignKey(
-        AutomobileVO,
-        related_name="vip",
-        on_delete=models.CASCADE,
-    )
+    vin = models.CharField(max_length=17)

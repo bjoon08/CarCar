@@ -3,6 +3,7 @@ import CreateAppointment from './CreateAppointment';
 
 const AppointmentList =() => {
     const [appointment, setAppointments] = useState([]);
+    const [automobiles, setAuto] = useState([]);
 
     async function fetchAppointmentData() {
         const appointmentUrl = 'http://localhost:8080/api/appointments/';
@@ -16,6 +17,8 @@ const AppointmentList =() => {
     useEffect(() => {
         fetchAppointmentData();
     }, []);
+
+
 
     return (
         <>
@@ -33,7 +36,6 @@ const AppointmentList =() => {
             <thead>
             <tr>
                 <th>VIN</th>
-                <th>is VIP?</th>
                 <th>Customer</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -47,14 +49,13 @@ const AppointmentList =() => {
                     return (
                     <tr key={appointment.id} >
                         <td>{ appointment.vin }</td>
-                        <td>{ appointment.sold ? "Yes": "No" }</td>
                         <td>{ appointment.customer }</td>
                         <td>{ new Date(appointment.date_time).toLocaleDateString() }</td>
                         <td>{ new Date(appointment.date_time).toLocaleTimeString() }</td>
                         <td>{ appointment.technician.employee_id }</td>
                         <td>{ appointment.reason }</td>
-                        <button type="button" className="btn btn-danger">Primary</button>
-                        <button type="button" className="btn btn-success">Secondary</button>
+                        <button type="button" className="btn btn-danger">Cancel</button>
+                        <button type="button" className="btn btn-success">Finish</button>
                     </tr>
                     );
                 },
