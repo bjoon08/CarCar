@@ -6,6 +6,7 @@ from sales_rest.views import (
     api_customer_delete,
     api_sale,
     api_sale_delete,
+    api_sale_history,
 )
 
 
@@ -24,4 +25,5 @@ urlpatterns = [
     ),
     path("sales/", api_sale, name="api_sale"),
     path("sales/<int:id>/", api_sale_delete, name="api_sale_delete"),
+    path("saleshistory/", api_sale_history, name="api_sale_history"),
 ]

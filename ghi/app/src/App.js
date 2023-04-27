@@ -8,8 +8,9 @@ import CreateAuto from './inventory/AutoCreate';
 import SalesPeople from './sales/SalesPersonPage';
 import Customer from './sales/CustomerPage';
 import Sales from './sales/SalesPage';
-import Technicianlist from './services/Technicians';
-import AppointmentList from './services/Appointments';
+import TechnicianList from './services/Technicians';
+// import AppointmentList from './services/Appointments';
+import SalesHistory from './sales/SalesHistoryPage';
 
 function App() {
   return (
@@ -25,8 +26,9 @@ function App() {
           <Route path="salespeople/" element={<SalesPeople />} />
           <Route path="customers/" element={<Customer />} />
           <Route path="sales/" element={<Sales />} />
+          <Route path="saleshistory/" element={<SalesHistory />} />
           <Route path="technicians/" element={<TechnicianList />} />
-          <Route path="appointments/" element={<AppointmentList />} />
+          {/* <Route path="appointments/" element={<AppointmentList />} /> */}
         </Routes>
       </div>
     </BrowserRouter>
