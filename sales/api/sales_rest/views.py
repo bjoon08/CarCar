@@ -158,6 +158,9 @@ def api_sale(request):
         customer = Customer.objects.get(first_name=content["customer"])
         content["customer"] = customer
 
+        automobile.available = True
+        automobile.save()
+
         sales = Sale.objects.create(**content)
         return JsonResponse(
             sales,
@@ -177,4 +180,43 @@ def api_sale_delete(request, id):
         count, _ = Sale.objects.filter(id=id).delete()
         return JsonResponse(
             {"deleted": count > 0}
+        )
+
+
+@require_http_methods(["GET"])
+def api_sale_history(request):
+    if request.method == "GET":
+        salesperson = request.GET.get('salesperson', None)
+        sales_data = []
+
+        # Filter sales data based on the selected salesperson
+        # from the drop down menu
+        if salesperson:
+            sales = Sale.objects.filter(salesperson_first_name=salesperson)
+
+            # Take the relevant fields from each sale and append to sales_data
+            for sale in sales:
+                sales_data.append({
+                    'salesperson': f"{sale.salesperson_first_name}"
+                    f"{sale.salesperson_last_name}",
+                    'customer': f"{sale.customer} {sale.customer_last_name}",
+                    'automobile': sale.automobile,
+                    'price': sale.price,
+                })
+        else:
+            # If no salesperson is selected, return all sales data
+            sales = Sale.objects.all()
+
+            # Take the relevant fields from each state and append to sales_data
+            for sale in sales:
+                sales_data.append({
+                    'salesperson': f"{sale.salesperson_first_name} "
+                    f"{sale.salesperson_last_name}",
+                    'customer': f"{sale.customer} {sale.customer_last_name}",
+                    'automobile': sale.automobile,
+                    'price': sale.price,
+                })
+
+        return JsonResponse(
+            {'sales_data': sales_data},
         )
