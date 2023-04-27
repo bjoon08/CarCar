@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CreateTechnician from './CreateTechnician';
+import TechnicianCard from './TechnicianCard';
 
 const TechnicianList =() => {
     const [technician, setTechnician] = useState([]);
@@ -20,7 +21,7 @@ const TechnicianList =() => {
     return (
         <>
         <br />
-            <div className="px-4 py-5 my-5 mt-0 text-center big-info">
+            <div className="px-4 py-3 mt-0 text-center big-info">
                 <h1 className="display-5 fw-bold">Technicians</h1>
             </div>
             <div className="container" >
@@ -28,27 +29,12 @@ const TechnicianList =() => {
                     <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createtechnician" data-bs-whatever="@mdo">Create a Technician</button>
                 </div>
             </div>
-            <CreateTechnician fetchTechData={fetchTechData}  />
-            <table className="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Employee ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {technician?.map(tech => {
-                        return (
-                        <tr key={tech.id}>
-                            <td>{ tech.employee_id }</td>
-                            <td>{ tech.first_name }</td>
-                            <td>{ tech.last_name }</td>
-                        </tr>
-                        );
-                    },)}
-                </tbody>
-            </table>
+            <CreateTechnician fetchTechData={fetchTechData} technician={technician}/>
+            <div className="container mt-4">
+            <div className="row gy-3">
+                <TechnicianCard technician={technician} />
+            </div>
+            </div>
         </>
     );
 }
