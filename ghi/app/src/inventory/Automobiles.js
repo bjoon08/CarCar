@@ -22,6 +22,9 @@ const AutomobilesList =() => {
     return (
         <>
         <br />
+        <div className="px-4 py-3 mt-0 text-center big-info">
+            <h1 className="display-5 fw-bold">Automobiles</h1>
+        </div>
         <div className="container" >
             <div className="row justify-content-end">
                 <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createauto" data-bs-whatever="@mdo">Create an Auto</button>

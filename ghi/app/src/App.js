@@ -9,8 +9,7 @@ import SalesPeople from './sales/SalesPersonPage';
 import Customer from './sales/CustomerPage';
 import Sales from './sales/SalesPage';
 import TechnicianList from './services/Technicians';
-// import AppointmentList from './services/Appointments';
-import SalesHistory from './sales/SalesHistoryPage';
+import AppointmentList from './services/Appointments';
 
 function App() {
   return (
