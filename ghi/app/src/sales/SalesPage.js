@@ -12,7 +12,6 @@ const Sales = () => {
         if (response.ok) {
             const data = await response.json();
             setSales(data.sales);
-            console.log(data.sales)
         }
     }
 

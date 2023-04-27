@@ -12,7 +12,6 @@ const VehicleModels = () => {
         if (response.ok) {
             const data = await response.json();
             setVehicleModels(data.models);
-            console.log(data, "----");
         }
     }
 
