@@ -32,7 +32,6 @@ const CreateVehicleModel = () => {
             },
         }
         const response = await fetch(vehicleUrl, fetchConfigUrl);
-        console.log(response)
 
         if (response.ok) {
 

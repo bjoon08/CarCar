@@ -7,8 +7,9 @@ import VehicleModels from './inventory/VehicleModelPage';
 import CreateAuto from './inventory/AutoCreate';
 import SalesPeople from './sales/SalesPersonPage';
 import Customer from './sales/CustomerPage';
-import TechnicianList from './services/Technicians';
-
+import Sales from './sales/SalesPage';
+import Technicianlist from './services/Technicians';
+import AppointmentList from './services/Appointments';
 
 function App() {
   return (
@@ -23,7 +24,9 @@ function App() {
           <Route path="auto/new/" element={<CreateAuto />} />
           <Route path="salespeople/" element={<SalesPeople />} />
           <Route path="customers/" element={<Customer />} />
+          <Route path="sales/" element={<Sales />} />
           <Route path="technicians/" element={<TechnicianList />} />
+          <Route path="appointments/" element={<AppointmentList />} />
         </Routes>
       </div>
     </BrowserRouter>

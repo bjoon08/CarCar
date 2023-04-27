@@ -5,9 +5,13 @@ from django.urls import reverse
 # Create your models here.
 class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17, unique=True)
+    # available = models.BooleanField(default=True)
 
     def get_api_url(self):
-        return reverse("api_automobile", kwargss={"vin": self.vin})
+        return reverse("api_automobile", kwargs={"vin": self.vin})
+
+    def __str__(self):
+        return self.vin
 
 
 class SalesPerson(models.Model):
@@ -35,7 +39,7 @@ class Customer(models.Model):
         return reverse("api_customer", kwargs={"pk": self.pk})
 
     def __str__(self):
-        return self.phone_number
+        return self.first_name
 
     class Meta:
         ordering = ("first_name", "last_name", "phone_number")

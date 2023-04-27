@@ -32,24 +32,34 @@ class CustomerListEncoder(ModelEncoder):
         "last_name",
         "address",
         "phone_number",
+        "id",
     ]
 
 
 class SaleListEncoder(ModelEncoder):
     model = Sale
     properties = [
-        "automobile",
-        "salesperson",
-        "customer",
         "price",
         "id",
-        "vin",
+        "automobile",
+        "customer",
+        "salesperson",
     ]
     encoders = {
         "automobile": AutomobileVOEncoder(),
-        "salesperson": SalesPersonListEncoder(),
         "customer": CustomerListEncoder(),
+        "salesperson": SalesPersonListEncoder(),
     }
+
+    def get_extra_data(self, o):
+        return {
+            "automobile": o.automobile.vin,
+            "salesperson": o.salesperson.employee_id,
+            "salesperson_first_name": o.salesperson.first_name,
+            "salesperson_last_name": o.salesperson.last_name,
+            "customer": o.customer.first_name,
+            "customer_last_name": o.customer.last_name,
+        }
 
 
 @require_http_methods(["GET", "POST"])
@@ -127,5 +137,44 @@ def api_customer_delete(request, id):
         )
 
 
-# @require_http_methods(["GET", "POST"])
-# def api_sale(request):
+@require_http_methods(["GET", "POST"])
+def api_sale(request):
+    if request.method == "GET":
+        sales = Sale.objects.all()
+        return JsonResponse(
+            {"sales": sales},
+            encoder=SaleListEncoder,
+        )
+    else:
+        content = json.loads(request.body)
+        # try:
+        automobile = AutomobileVO.objects.get(vin=content["automobile"])
+        # if automobile.available is True:
+        content["automobile"] = automobile
+        salesperson = SalesPerson.objects.get(
+            employee_id=content["salesperson"]
+            )
+        content["salesperson"] = salesperson
+        customer = Customer.objects.get(first_name=content["customer"])
+        content["customer"] = customer
+
+        sales = Sale.objects.create(**content)
+        return JsonResponse(
+            sales,
+            encoder=SaleListEncoder,
+            safe=False,
+        )
+        # except AutomobileVO.DoesNotExist:
+        #     return JsonResponse(
+        #         {"message": "Could not create a sale"},
+        #         status=400,
+        #     )
+
+
+@require_http_methods(["DELETE"])
+def api_sale_delete(request, id):
+    if request.method == "DELETE":
+        count, _ = Sale.objects.filter(id=id).delete()
+        return JsonResponse(
+            {"deleted": count > 0}
+        )
