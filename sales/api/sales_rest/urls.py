@@ -4,8 +4,8 @@ from sales_rest.views import (
     api_salesperson_delete,
     api_customer,
     api_customer_delete,
-    # api_sale,
-    # api_sale_delete,
+    api_sale,
+    api_sale_delete,
 )
 
 
@@ -22,6 +22,6 @@ urlpatterns = [
         api_customer_delete,
         name="api_customer_delete"
     ),
-    # path("sales/", api_sale, name="api_sale"),
-    # path("sales/<int:id>/", api_sale_delete, name="api_sale_delete"),
+    path("sales/", api_sale, name="api_sale"),
+    path("sales/<int:id>/", api_sale_delete, name="api_sale_delete"),
 ]

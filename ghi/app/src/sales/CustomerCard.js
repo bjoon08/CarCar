@@ -1,4 +1,6 @@
-const CustomerCard = ({ customers }) => {
+import DeleteCustomer from "./DeleteCustomer";
+
+const CustomerCard = ({ customers, fetchCustomerData }) => {
     return (
         <div className="row">
             {customers?.map((customer) => {
@@ -14,6 +16,7 @@ const CustomerCard = ({ customers }) => {
                         <p className="card-text">{customer.phone_number}</p>
                         <h5 className="card-title"><strong>Address:</strong></h5>
                         <p className="card-text">{customer.address}</p>
+                        <DeleteCustomer id={customer.id} fetchCustomerData={fetchCustomerData} />
                     </div>
                     </div>
                 </div>

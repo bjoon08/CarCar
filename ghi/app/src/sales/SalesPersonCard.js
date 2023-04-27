@@ -1,4 +1,6 @@
-const SalesPersonCard = ({ salespeople }) => {
+import DeleteSalesPerson from "./DeleteSalesPerson";
+
+const SalesPersonCard = ({ salespeople, fetchSalesPeopleData }) => {
     return (
         <div className="row">
             {salespeople?.map((salesperson) => {
@@ -12,6 +14,7 @@ const SalesPersonCard = ({ salespeople }) => {
                     <div className="card-footer">
                         <h5 className="card-title fs-6"><strong>First/Last Name:</strong></h5>
                         <p className="card-text fs-5">{salesperson.first_name} {salesperson.last_name}</p>
+                        <DeleteSalesPerson id={salesperson.id} fetchSalesPeopleData={fetchSalesPeopleData} />
                     </div>
                     </div>
                 </div>
