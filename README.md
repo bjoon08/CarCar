@@ -2,7 +2,7 @@
 
 Team:
 
-* Brandon Joon Hyuk Jang - Sales Microservice
+* Joon Hyuk Brandon Jang - Sales Microservice
 * Ramon Duarte - Services Microservices
 
 ## Design
