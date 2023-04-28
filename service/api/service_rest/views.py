@@ -78,7 +78,6 @@ def api_appointments(request):
             technician_id = content["technician"]
             technician = Technician.objects.get(employee_id=technician_id)
             content["technician"] = technician
-
         except Technician.DoesNotExist:
             response = JsonResponse(
                 {"message": "Could not create the appointment"}

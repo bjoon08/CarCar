@@ -30,7 +30,7 @@ const CreateAppointment = () => {
         const data = {};
         data.vin = vin
         data.customer = customer
-        data.datetime = date_time
+        data.date_time = date_time
         data.technician = technician
         data.reason = reason
 
@@ -44,17 +44,18 @@ const CreateAppointment = () => {
         };
 
         const response = await fetch(appointmentsUrl, fetchConfigUrl);
-        console.log(response)
 
         if (response.ok) {
-
+            const newAppointment = await response.json()
+            console.log(newAppointment)
             setVin('')
             setCustomer('')
             setDateTime('')
             setTechnician('')
             setReason('')
+            event.target.reset()
         }
-        window.location.reload();
+
     };
     const fetchData = async () => {
         const url = 'http://localhost:8080/api/technicians/';
@@ -88,7 +89,7 @@ const CreateAppointment = () => {
                     </div>
                     <div className="mb-3">
                         <label htmlFor="date" className="col-form-label">Date & Time</label>
-                        <input value={date_time} onChange={handleDateTimeChange} type="datetime-local" className="form-control" id="datetime" />
+                        <input value={date_time} onChange={handleDateTimeChange} type="datetime-local" className="form-control" id="date_time" />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="technician" className="col-form-label">Technician</label>
@@ -96,7 +97,7 @@ const CreateAppointment = () => {
                             <option value="">Choose a technician</option>
                                 {technicians?.map(technician => {
                                     return (
-                                        <option value={technician.id} key={technician.id}>{technician.employee_id}</option>
+                                        <option value={technician.employee_id} key={technician.id}>{technician.first_name} {technician.last_name}</option>
                                     )
                                     })}
                         </select>

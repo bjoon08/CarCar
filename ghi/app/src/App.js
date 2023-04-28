@@ -30,6 +30,8 @@ function App() {
           <Route path="saleshistory/" element={<SalesHistory />} />
           <Route path="technicians/" element={<TechnicianList />} />
           <Route path="appointments/" element={<AppointmentList />} />
+          <Route path="appointments/history" element={<ServiceHistoryList />} />
+          <Route path="appointments/" element={<AppointmentList />} />
         </Routes>
       </div>
     </BrowserRouter>

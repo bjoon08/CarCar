@@ -3,7 +3,6 @@ import CreateAppointment from './CreateAppointment';
 
 const AppointmentList =() => {
     const [appointment, setAppointments] = useState([]);
-    const [automobiles, setAuto] = useState([]);
 
     async function fetchAppointmentData() {
         const appointmentUrl = 'http://localhost:8080/api/appointments/';
@@ -18,7 +17,29 @@ const AppointmentList =() => {
         fetchAppointmentData();
     }, []);
 
+const handleCancel = async (id) => {
+    const cancelUrl = `http://localhost:8080/api/appointments/${id}/cancel`;
+    const fetchConfig = {
+        method: 'put',
+    }
+    const response = await fetch(cancelUrl, fetchConfig);
+    if (response.ok) {
+        setAppointments(appointment.filter((appointment) => appointment.id));
+    }
+    document.location.reload();
+}
 
+const handleFinish = async (id) => {
+    const finishUrl = `http://localhost:8080/api/appointments/${id}/finish`;
+    const fetchConfig = {
+        method: 'put',
+    }
+    const response = await fetch(finishUrl, fetchConfig);
+    if (response.ok) {
+        setAppointments(appointment.filter((appointment) => appointment.id));
+    }
+    document.location.reload();
+}
 
     return (
         <>
@@ -41,24 +62,28 @@ const AppointmentList =() => {
                 <th>Time</th>
                 <th>Technician</th>
                 <th>Reason</th>
-                <th>Status</th>
             </tr>
             </thead>
             <tbody>
                 {appointment?.map(appointment => {
+                    if (appointment.status === "created"){
                     return (
-                    <tr key={appointment.id} >
+                    <tr key={appointment.id } >
                         <td>{ appointment.vin }</td>
                         <td>{ appointment.customer }</td>
                         <td>{ new Date(appointment.date_time).toLocaleDateString() }</td>
                         <td>{ new Date(appointment.date_time).toLocaleTimeString() }</td>
                         <td>{ appointment.technician.employee_id }</td>
                         <td>{ appointment.reason }</td>
-                        <button type="button" className="btn btn-danger">Cancel</button>
-                        <button type="button" className="btn btn-success">Finish</button>
+                        <td>
+                            <div>
+                                <button onClick={() => handleCancel(appointment.id)} type="button" className="btn btn-outline-danger">Cancel</button>
+                                <button onClick={() => handleFinish(appointment.id)} type="button" className="btn btn-outline-success">Finish</button>
+                            </div>
+                        </td>
                     </tr>
-                    );
-                },
+                );
+                    }},
                 )}
             </tbody>
         </table>
