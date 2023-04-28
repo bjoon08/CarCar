@@ -48,7 +48,7 @@ const CreateAuto = () => {
             setVin('')
             setModel('')
         }
-        window.location.reload();
+    event.target.reset();
     }
     const fetchData = async () => {
         const url = 'http://localhost:8100/api/models/';
@@ -72,7 +72,7 @@ const CreateAuto = () => {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} >
                     <div className="mb-3">
                     <label htmlFor="color" className="col-form-label">Color</label>
                     <input value={color} onChange={handleColorChange} type="text" className="form-control" id="color" />
@@ -96,7 +96,7 @@ const CreateAuto = () => {
                     </select>
                     </div>
                     <div className="modal-footer">
-                    <button data-bs-dismiss="modal" type="submit" className="btn btn-primary">Create</button>
+                    <button data-bs-dismiss="modal" type="submit" className="btn btn-primary" >Create</button>
                     </div>
                 </form>
                 </div>

@@ -26,11 +26,11 @@ function App() {
           <Route path="salespeople/" element={<SalesPeople />} />
           <Route path="customers/" element={<Customer />} />
           <Route path="sales/" element={<Sales />} />
-          {/* <Route path="saleshistory/" element={<SalesHistory />} /> */}
+          <Route path="saleshistory/" element={<SalesHistory />} />
           <Route path="technicians/" element={<TechnicianList />} />
           <Route path="appointments/" element={<AppointmentList />} />
           <Route path="appointments/history" element={<ServiceHistoryList />} />
-          {/* <Route path="appointments/" element={<AppointmentList />} /> */}
+          <Route path="appointments/" element={<AppointmentList />} />
         </Routes>
       </div>
     </BrowserRouter>
