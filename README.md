@@ -7,6 +7,10 @@ Team:
 
 ## Design
 
+In our project's backend, we have three main bounded contexts: Inventory, Sales, and Services. To collect information on Automobiles, Sales and Services poll from Inventory. This allows the creation of AutomobileVO objects.
+
+!(CarCar(ProjectBeta).png)
+
 ## Service microservice
 
 Explain your models and integration with the inventory
