@@ -14,6 +14,11 @@ const Manufacturers = () => {
         }
     }
 
+    const resetForm = () => {
+        const form = document.getElementById('createManufacturerForm');
+        form.reset();
+    }
+
     useEffect(() => {
         fetchManufacturerData()
     }, []);
@@ -28,7 +33,7 @@ const Manufacturers = () => {
                 <button type="button" className="btn btn-primary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#createmanufacturer" data-bs-whatever="@mdo">Create a Manufacturer</button>
             </div>
         </div>
-        <CreateManufacturer fetchManufacturerData={fetchManufacturerData} manufacturers={manufacturers} />
+        <CreateManufacturer fetchManufacturerData={fetchManufacturerData} manufacturers={manufacturers} resetForm={resetForm} />
 
         <div className="container mt-4">
         <div className="row gy-3">

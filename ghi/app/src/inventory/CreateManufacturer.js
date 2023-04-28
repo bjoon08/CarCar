@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const CreateManufacturer = () => {
+const CreateManufacturer = ({ fetchManufacturerData, resetForm }) => {
     const [name, setName] = useState('');
     const handleNameChange = (event) => {
         setName(event.target.value);
@@ -23,10 +23,11 @@ const CreateManufacturer = () => {
         const response = await fetch(manufacturersUrl, fetchConfigUrl);
 
         if (response.ok) {
-
             setName('')
+            resetForm();
+            fetchManufacturerData();
+
         }
-        window.location.reload();
     }
 
     return (
@@ -38,7 +39,7 @@ const CreateManufacturer = () => {
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} id="createManufacturerForm">
                     <div className="mb-3">
                     <label htmlFor="name" className="col-form-label">Manufacturer Name</label>
                     <input value={name} onChange={handleNameChange} type="text" className="form-control" id="name" />

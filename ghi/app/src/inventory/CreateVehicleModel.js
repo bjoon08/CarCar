@@ -34,12 +34,10 @@ const CreateVehicleModel = () => {
         const response = await fetch(vehicleUrl, fetchConfigUrl);
 
         if (response.ok) {
-
             setName('')
             setPicture('')
             setManufacturer('')
         }
-        window.location.reload();
     }
 
     const fetchData = async () => {
