@@ -21,6 +21,8 @@ const Manufacturers = () => {
     return (
         <>
         <br />
+        <h1 className="text-center">Manufacturer's List</h1>
+        <br />
         <div className="container mt-4">
             <div className="row justify-content-end text-center">
                 <button type="button" className="btn btn-primary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#createmanufacturer" data-bs-whatever="@mdo">Create a Manufacturer</button>

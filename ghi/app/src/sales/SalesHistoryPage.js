@@ -38,7 +38,8 @@ const SalesHistory = () => {
 
     return (
         <>
-        <h1 className="mt-5"><strong>Salesperson History</strong></h1>
+        <h1 className="mt-5 text-center"><strong>Salesperson History</strong></h1>
+        <br />
         <select value={salesperson} onChange={handleSalespersonChange} id="salesperson" name="salesperson" className="form-select mb-3 mt-0" aria-label=".form-select-lg example">
             <option value="">Choose a salesperson</option>
             {salespeople?.map(salesperson => {

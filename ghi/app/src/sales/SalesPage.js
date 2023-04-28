@@ -22,6 +22,8 @@ const Sales = () => {
     return (
         <>
         <br />
+        <h1 className="text-center">Sales List</h1>
+        <br />
             <div className="container mt-4">
                 <div className="row justify-content-end text-center">
                     <button type="button" className="btn btn-primary btn-lg btn-block" data-bs-toggle="modal" data-bs-target="#createsale" data-bs-whatever="@mdo">Create a Sale</button>
