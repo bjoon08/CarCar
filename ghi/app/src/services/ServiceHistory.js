@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import CreateAppointment from './CreateAppointment';
+import React, { useState, useEffect, useRef } from 'react';
 
-const AppointmentList =() => {
-    const [appointment, setAppointments] = useState([]);
-    const [automobiles, setAuto] = useState([]);
+
+const ServiceHistoryList =() => {
+    const [appointments, setAppointments] = useState([]);
+    const inputEl = useRef("");
 
     async function fetchAppointmentData() {
         const appointmentUrl = 'http://localhost:8080/api/appointments/';
@@ -14,28 +14,33 @@ const AppointmentList =() => {
         }
     }
 
+
+
     useEffect(() => {
         fetchAppointmentData();
     }, []);
-
-
-
+const getSearchTerm = () => {
+    console.log(inputEl.current.value);
+}
     return (
         <>
         <br />
         <div className="px-4 py-3 mt-0 text-center big-info">
-            <h1 className="display-5 fw-bold">Service Appointments</h1>
+            <h1 className="display-5 fw-bold">Service History</h1>
         </div>
-        <div className="container" >
-            <div className="row justify-content-end">
-                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createappointment" data-bs-whatever="@mdo">Create an Appointment</button>
+        {/* <div className="ui search">
+            <div className="ui icon input">
+                <input ref={inputEl} type="text" placeholder="Search by VIN..." className="prompt"/>
+                <i className="search icon">
+
+                </i>
             </div>
-        </div>
-        <CreateAppointment fetchAppointmentData={fetchAppointmentData} appointment={appointment} />
+        </div> */}
         <table className="table table-striped">
             <thead>
             <tr>
                 <th>VIN</th>
+                <th>is VIP?</th>
                 <th>Customer</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -45,17 +50,17 @@ const AppointmentList =() => {
             </tr>
             </thead>
             <tbody>
-                {appointment?.map(appointment => {
+                {appointments?.map(appointment => {
                     return (
                     <tr key={appointment.id} >
-                        <td>{ appointment.vin }</td>
+                        <td>{ appointment.vin.vin }</td>
+                        <td>{ appointment.sold ? "Yes": "No" }</td>
                         <td>{ appointment.customer }</td>
                         <td>{ new Date(appointment.date_time).toLocaleDateString() }</td>
                         <td>{ new Date(appointment.date_time).toLocaleTimeString() }</td>
-                        <td>{ appointment.technician.employee_id }</td>
+                        <td>{ appointment.technician.first_name }</td>
                         <td>{ appointment.reason }</td>
-                        <button type="button" className="btn btn-danger">Cancel</button>
-                        <button type="button" className="btn btn-success">Finish</button>
+                        <td>{ appointment.status }</td>
                     </tr>
                     );
                 },
@@ -66,4 +71,4 @@ const AppointmentList =() => {
     );
 }
 
-export default AppointmentList
+export default ServiceHistoryList

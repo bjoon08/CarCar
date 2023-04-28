@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 const CreateAppointment = () => {
     const [vin, setVin] = useState('');
     const [customer, setCustomer] = useState('');
-    const [date, setDate] = useState('');
-    const [time, setTime] = useState('');
+    const [date_time, setDateTime] = useState('');
     const [technician, setTechnician] = useState('');
     const [reason, setReason] = useState('');
     const [technicians, setTechnicians] = useState([]);
@@ -15,11 +14,8 @@ const CreateAppointment = () => {
     const handleCustomerChange = (event) => {
         setCustomer(event.target.value);
     }
-    const handleDateChange = (event) => {
-        setDate(event.target.value);
-    }
-    const handleTimeChange = (event) => {
-        setTime(event.target.value);
+    const handleDateTimeChange = (event) => {
+        setDateTime(event.target.value);
     }
     const handleTechnicianChange = (event) => {
         setTechnician(event.target.value);
@@ -28,17 +24,15 @@ const CreateAppointment = () => {
         setReason(event.target.value);
     }
 
-
     const handleSubmit = async (event) =>  {
         event.preventDefault();
 
         const data = {};
-        data.vin = vin;
-        data.customer = customer;
-        data.date = date;
-        data.time = time;
-        data.technician = technician;
-        data.reason = reason;
+        data.vin = vin
+        data.customer = customer
+        data.datetime = date_time
+        data.technician = technician
+        data.reason = reason
 
         const appointmentsUrl = 'http://localhost:8080/api/appointments/';
         const fetchConfigUrl = {
@@ -47,15 +41,16 @@ const CreateAppointment = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }
+        };
+
         const response = await fetch(appointmentsUrl, fetchConfigUrl);
         console.log(response)
 
         if (response.ok) {
+
             setVin('')
             setCustomer('')
-            setDate('')
-            setTime('')
+            setDateTime('')
             setTechnician('')
             setReason('')
         }
@@ -84,31 +79,27 @@ const CreateAppointment = () => {
                 <div className="modal-body">
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
-                    <label htmlFor="color" className="col-form-label">Automobile VIN</label>
-                    <input value={vin} onChange={handleVinChange} type="text" className="form-control" id="vin" />
+                        <label htmlFor="color" className="col-form-label">Automobile VIN</label>
+                        <input value={vin} onChange={handleVinChange} type="text" className="form-control" id="vin" />
+                    </div>
+                        <div className="mb-3">
+                        <label htmlFor="customer" className="col-form-label">Customer</label>
+                        <input value={customer} onChange={handleCustomerChange} type="text" className="form-control" id="customer" />
                     </div>
                     <div className="mb-3">
-                    <label htmlFor="customer" className="col-form-label">Customer</label>
-                    <input value={customer} onChange={handleCustomerChange} type="text" className="form-control" id="customer" />
+                        <label htmlFor="date" className="col-form-label">Date & Time</label>
+                        <input value={date_time} onChange={handleDateTimeChange} type="datetime-local" className="form-control" id="datetime" />
                     </div>
                     <div className="mb-3">
-                    <label htmlFor="date" className="col-form-label">Date</label>
-                    <input value={date} onChange={handleDateChange} type="date" className="form-control" id="date" />
-                    </div>
-                    <div className="mb-3">
-                    <label htmlFor="time" className="col-form-label">Time</label>
-                    <input value={time} onChange={handleTimeChange} type="time" className="form-control" id="time" />
-                    </div>
-                    <div className="mb-3">
-                    <label htmlFor="technician" className="col-form-label">Technician</label>
-                    <select value={technician} onChange={handleTechnicianChange} className="form-select" aria-label="Default select example">
-                    <option value="">Choose a technician</option>
-                        {technicians?.map(technician => {
-                            return (
-                                <option value={technician.id} key={technician.id}>{technician.employee_id}</option>
-                            )
-                            })}
-                    </select>
+                        <label htmlFor="technician" className="col-form-label">Technician</label>
+                        <select value={technician} onChange={handleTechnicianChange} className="form-select" aria-label="Default select example">
+                            <option value="">Choose a technician</option>
+                                {technicians?.map(technician => {
+                                    return (
+                                        <option value={technician.id} key={technician.id}>{technician.employee_id}</option>
+                                    )
+                                    })}
+                        </select>
                     </div>
                     <div className="mb-3">
                     <label htmlFor="reason" className="col-form-label">Reason</label>

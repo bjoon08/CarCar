@@ -11,6 +11,7 @@ import Sales from './sales/SalesPage';
 import SalesHistory from './sales/SalesHistoryPage';
 import TechnicianList from './services/Technicians';
 import AppointmentList from './services/Appointments';
+import ServiceHistoryList from './services/ServiceHistory';
 
 function App() {
   return (
