@@ -75,15 +75,3 @@ const ServiceHistoryList =() => {
 }
 
 export default ServiceHistoryList
-
-
-
-
-       {/* <div className="ui search">
-            <div className="ui icon input">
-                <input ref={inputEl} type="text" placeholder="Search by VIN..." className="prompt"/>
-                <i className="search icon">
-
-                </i>
-            </div>
-        </div> */}
