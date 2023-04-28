@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 const ServiceHistoryList =() => {
     const [appointments, setAppointments] = useState([]);
-    const inputEl = useRef("");
+    const [search, setSearch] = useState('');
+
 
     async function fetchAppointmentData() {
         const appointmentUrl = 'http://localhost:8080/api/appointments/';
@@ -19,23 +20,25 @@ const ServiceHistoryList =() => {
     useEffect(() => {
         fetchAppointmentData();
     }, []);
-const getSearchTerm = () => {
-    console.log(inputEl.current.value);
-}
+
+    const filteredAppointments = appointments.filter(appointment =>
+        appointment.vin.toLowerCase().includes(search.toLowerCase()));
+
+    const handleSearchChange = (event) => {
+        setSearch(event.target.value);
+    }
+
+
     return (
         <>
         <br />
         <div className="px-4 py-3 mt-0 text-center big-info">
             <h1 className="display-5 fw-bold">Service History</h1>
-        </div>
-        {/* <div className="ui search">
-            <div className="ui icon input">
-                <input ref={inputEl} type="text" placeholder="Search by VIN..." className="prompt"/>
-                <i className="search icon">
-
-                </i>
+            <div className="form-group">
+                <label htmlFor="vin-search"> Search by VIN...</label>
+                <input type="text" className="form-control" id="vin-search" value={search} onChange={handleSearchChange} />
             </div>
-        </div> */}
+        </div>
         <table className="table table-striped">
             <thead>
             <tr>
@@ -50,7 +53,7 @@ const getSearchTerm = () => {
             </tr>
             </thead>
             <tbody>
-                {appointments?.map(appointment => {
+                {filteredAppointments.map(appointment => {
                     return (
                     <tr key={appointment.id} >
                         <td>{ appointment.vin }</td>
@@ -72,3 +75,15 @@ const getSearchTerm = () => {
 }
 
 export default ServiceHistoryList
+
+
+
+
+       {/* <div className="ui search">
+            <div className="ui icon input">
+                <input ref={inputEl} type="text" placeholder="Search by VIN..." className="prompt"/>
+                <i className="search icon">
+
+                </i>
+            </div>
+        </div> */}

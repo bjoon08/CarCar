@@ -8,6 +8,7 @@ import CreateAuto from './inventory/AutoCreate';
 import SalesPeople from './sales/SalesPersonPage';
 import Customer from './sales/CustomerPage';
 import Sales from './sales/SalesPage';
+import SalesHistory from './sales/SalesHistoryPage';
 import TechnicianList from './services/Technicians';
 import AppointmentList from './services/Appointments';
 import ServiceHistoryList from './services/ServiceHistory';
