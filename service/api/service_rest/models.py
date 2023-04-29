@@ -16,6 +16,7 @@ class Technician(models.Model):
 
 class AutomobileVO(models.Model):
     vin = models.CharField(max_length=17, unique=True)
+    sold = models.BooleanField(default=False)
 
 
 
@@ -30,3 +31,4 @@ class Appointment(models.Model):
         on_delete=models.CASCADE,
     )
     vin = models.CharField(max_length=17)
+    sold = models.BooleanField(default=False)

@@ -57,6 +57,7 @@ const handleFinish = async (id) => {
             <thead>
             <tr>
                 <th>VIN</th>
+                <th>is VIP?</th>
                 <th>Customer</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -70,6 +71,7 @@ const handleFinish = async (id) => {
                     return (
                     <tr key={appointment.id } >
                         <td>{ appointment.vin }</td>
+                        <td>{ appointment.sold ? "Yes": "No" }</td>
                         <td>{ appointment.customer }</td>
                         <td>{ new Date(appointment.date_time).toLocaleDateString() }</td>
                         <td>{ new Date(appointment.date_time).toLocaleTimeString() }</td>
