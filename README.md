@@ -31,8 +31,79 @@ The front end makes its API calls from the App.js file and the returned data is 
 
 ## Service microservice
 
-Explain your models and integration with the inventory
-microservice, here.
+* Ramon Duarte Ruiz
+
+    * Port - `8080:8000`
+
+    * URL - http://localhost:8080/api/
+
+    ## Models and CRUD
+
+    The Services microservice consists of 3 models (one of the models being a value object, or a VO, that uses a poller to fetch data)
+
+    ## Technician
+
+    * Consists of *first name, last name, and employee id*.
+
+        ## CRUD
+
+        * `GET` - http://localhost:8080/api/technicians/ this will retrieve a list of all of the technicians
+
+        * `POST` - http://localhost:8080/api/technicians/ this will allow you to create a new technician by filling in the first name, last name, and employeee id using these fields:
+
+        ```
+        {
+            "first_name": "Ramon",
+            "last_name": "Duarte",
+            "employee_id": "drnkfist",
+        }
+        ```
+
+        the employee id must be a unique string.
+
+        * `GET` - http://localhost:8080/api/technicians/(id)/ this will retrieve the technician details of a specific technician
+
+        * `PUT` - not supported
+
+    ## Appointments
+
+    * Consists of *date and time, appointment reason, appointment status, automobile vin, customer, and technician* This model uses a foreign key to access the data of the technician as well as the AutomobileVO for the vin.
+
+        ## CRUD
+
+        * `GET` - http://localhost:8080/api/appointments/ this will retrieve a list of all the appointments
+
+        * `POST` - http://localhost:8080/api/appointments/ this will allow you to create a new appointment by filling in the date_time, reason, customer, technician, vin using these fields:
+
+        ```
+        {
+            "date_time": "2023-05-05T12:30",
+            "reason": "Oil Change",
+            "customer": "Sahar Habashi",
+            "technician": "drnkfist",
+            "vin": "KFGHWE46BDFG87RGT"
+        }
+        ```
+
+        The vin entry must be 17 digits long to meet the requirements. This represents the standard amount of digits that a cars vin has.
+
+        * `GET` - http://localhost:8080/api/appointments/(id)/ this will retrieve the appointment details of a specific appointment
+
+        * `DELETE` - http://localhost:8080/api/appointments/(id)/ this will take the id and delete the appointment associated with it
+
+        * `PUT` - http://localhost:8080/api/appointments/(id)/finish/ this will change the status of the appointment associated with the id from created to finished
+
+        * `PUT` - http://localhost:8080/api/appointments/(id)/cancel/ this will change the status of the appointment associated with the id from created to cancelled
+
+    ## AutomobileVO
+
+    * This gives us the VIN number and whether or not the car was sold. This is a value object.
+
+    ## Poller
+
+    * Every 60 seconds a GET request is made to: "http://inventory-api:8000/api/automobiles/"
+
+    * returns a list of objects that are JSON automobile objects
 
 ## Sales microservice
 
@@ -131,7 +202,6 @@ microservice, here.
     * Consists of a *VIN number*. This is a value object, so *it is not referenced outside of the sales microservice, poller, and has no API endpoint*.
 
     ## Poller
-
 
     * A GET request is made every 60 sec using the request module to: "http://inventory-api:8000/api/automobiles/"
 
